@@ -1,0 +1,26 @@
+name: "Trigger Hub"
+description: "This will trigger the Hub Repo to pull in the changes from this repo."
+inputs:
+  hub-repo:
+    description: "The repo to trigger."
+    required: true
+    default: cephalofair/rules-hub
+  target-action:
+    description: "The name of the action to trigger."
+    required: true
+    default: hub-update
+runs:
+  using: "composite"
+  steps:
+    - name: "Pull the Trigger"
+      run: |
+        service="${{ github.event.inputs.target_service }}"
+        version="${{ github.event.inputs.target_version }}"
+        repo="${{ inputs.hub-repo }}"
+        event_type="${{ inputs.target-action }}"
+        curl -L \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.PAT }}" \
+          https://api.github.com/repos/${repo}/dispatches \
+          -d "{\"event_type\": \"${event_type}\", \"client_payload\": {\"source\": \"${{ github.repository }}\"}}"

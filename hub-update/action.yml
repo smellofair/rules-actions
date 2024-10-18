@@ -1,0 +1,13 @@
+name: "Hub Update"
+description: "This does the logic of pulling in the latest version of a given language"
+inputs:
+  source:
+    description: "The name of the source repo"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: "Add / Update Submodule"
+      run: |
+        echo "${{ inputs.source }}"
+        echo "and now i'd do the magic"
