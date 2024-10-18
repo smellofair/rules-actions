@@ -46,8 +46,8 @@ runs:
         if [ -e "${SUBMODULE_PATH}" ]; then
           echo "Updating submodule...";
           git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
-          git status;
-
+          git add "${SUBMODULE_PATH}";
+          git commit -m "Updating ${RULE_LANG} translation";
         else
           echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
