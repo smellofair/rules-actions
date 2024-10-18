@@ -10,5 +10,6 @@ runs:
     - name: "Add / Update Submodule"
       shell: bash
       run: |
+        ls;
         echo "${{ inputs.source }}"
         echo "and now i'd do the magic"
