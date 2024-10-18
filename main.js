@@ -6,6 +6,7 @@ try {
   const payload = github.context.payload;
   core.info(JSON.stringify(payload, null, 2));
   core.summary.addDetails("Payload", JSON.stringify(payload, null, 2));
+  core.summary.addDetails("Hub Repo", hubRepo);
 } catch (error) {
   core.setFailed(error.message);
 }
