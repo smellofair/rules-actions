@@ -14,7 +14,9 @@ runs:
     - name: "Checkout hub repo"
       uses: actions/checkout@v4
       with:
+        token: ${{ inputs.pat }}
         submodules: true
+
     - name: "Initialize Submodules"
       shell: bash
       run: |
