@@ -8,6 +8,7 @@ runs:
   using: "composite"
   steps:
     - name: "Add / Update Submodule"
+      shell: bash
       run: |
         echo "${{ inputs.source }}"
         echo "and now i'd do the magic"
