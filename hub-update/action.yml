@@ -9,15 +9,18 @@ runs:
   steps:
     - name: "Checkout hub repo"
       uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: "Initialize Submodules"
+      shell: bash
+      run: |
+        git submodule init;
+        git submodule update;
 
     - name: "Add / Update Submodule"
       shell: bash
       run: |
         ls -lah;
-        echo "Initializing submodules...";
-
-        git submodule init;
-        git submodule update;
 
         SOURCE="${{ inputs.source }}";
         RULE_LANG="${SOURCE: -2}";
