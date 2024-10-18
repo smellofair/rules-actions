@@ -36,10 +36,12 @@ runs:
 
         echo "Checking for ${RULE_LANG}";
         if [ -e "${SUBMODULE_PATH}" ]; then
+          echo "Updating submodule...";
           git submodule update --remote "${SUBMODULE_PATH}";
         else
           echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
+          git commit -m "Adding ${SOURCE} to translations";
         fi
 
         git push;
