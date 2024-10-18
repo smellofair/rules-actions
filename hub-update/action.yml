@@ -21,6 +21,12 @@ runs:
         git submodule init;
         git submodule update;
 
+    - name: "Configure Identity"
+      shell: bash
+      run: |
+        git config --global user.name "Cephalobot"
+        git config --global user.email "cephalobot@j.diode.pw"
+
     - name: "Add / Update Submodule"
       shell: bash
       env:
