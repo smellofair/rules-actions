@@ -7,8 +7,11 @@ inputs:
     required: false
     default: cephalofair/rules-hub
 runs:
-  using: node20
-  main: main.js
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.hub-repo }}
+
 branding:
   icon: activity
   color: orange
