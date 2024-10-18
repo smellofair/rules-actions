@@ -29,4 +29,4 @@ runs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${PAT}" \
           https://api.github.com/repos/${REPO}/dispatches \
-          -d "{\"event_type\": \"${TARGEG_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\"}}"
+          -d "{\"event_type\": \"${TARGET_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\"}}"
