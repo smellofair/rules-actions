@@ -35,7 +35,7 @@ runs:
         PAT: ${{ inputs.pat }}
         SOURCE: ${{ inputs.source }}
       run: |
-        ls -lahR;
+        ls -lhR;
 
         RULE_LANG="${SOURCE: -2}";
         SUBMODULE_PATH="translations/${RULE_LANG}";
@@ -46,6 +46,8 @@ runs:
         if [ -e "${SUBMODULE_PATH}" ]; then
           echo "Updating submodule...";
           git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
+          git status;
+
         else
           echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
