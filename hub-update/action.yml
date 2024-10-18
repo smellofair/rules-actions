@@ -11,10 +11,10 @@ runs:
       shell: bash
       run: |
         SOURCE="${{ inputs.source }}";
-        RULE_LANG="${SOURCE:-2}";
+        RULE_LANG="${SOURCE: -2}";
         echo "Checking for ${RULE_LANG}";
         if [ -e "translations/${RULE_LANG}" ]; then
           echo "it exists!";
         else
           echo "it doesn't exist";
-        done
+        fi
