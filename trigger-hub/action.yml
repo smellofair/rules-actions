@@ -9,15 +9,18 @@ inputs:
     description: "The name of the action to trigger."
     required: true
     default: hub-update
+  pat:
+    description: "An access token with the correct permissions"
+    required: true
 runs:
   using: "composite"
   steps:
     - name: "Pull the Trigger"
       shell: bash
       env:
-        PAT: ${{ secrets.PAT }}
         REPO: ${{ inputs.hub-repo }}
         TARGET_ACTION: ${{ inputs.target-action }}
+        PAT: ${{ inputs.pat }}
       run: |
         service="${{ github.event.inputs.target_service }}"
         version="${{ github.event.inputs.target_version }}"
