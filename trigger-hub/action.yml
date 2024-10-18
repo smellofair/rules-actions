@@ -22,8 +22,6 @@ runs:
         TARGET_ACTION: ${{ inputs.target-action }}
         PAT: ${{ inputs.pat }}
       run: |
-        service="${{ github.event.inputs.target_service }}"
-        version="${{ github.event.inputs.target_version }}"
         curl -L \
           -X POST \
           -H "Accept: application/vnd.github+json" \
