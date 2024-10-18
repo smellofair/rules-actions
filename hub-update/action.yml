@@ -4,6 +4,10 @@ inputs:
   source:
     description: "The name of the source repo"
     required: true
+  pat:
+    description: "A Personal Access Token"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -19,19 +23,23 @@ runs:
 
     - name: "Add / Update Submodule"
       shell: bash
+      env:
+        PAT: ${{ inputs.pat }}
+        SOURCE: ${{ inputs.source }}
       run: |
         ls -lah;
 
-        SOURCE="${{ inputs.source }}";
         RULE_LANG="${SOURCE: -2}";
-        SUBMODULE="translations/${RULE_LANG}";
+        SUBMODULE_PATH="translations/${RULE_LANG}";
+        SUBMODULE_GIT_URL="https://x-access-token:${PAT}@github.com/${SOURCE}"
+
 
         echo "Checking for ${RULE_LANG}";
         if [ -e "${SUBMODULE}" ]; then
           git submodule update --remote "${SUBMODULE}";
         else
           echo "Creating submodule...";
-          git submodule add git@github.com:${SOURCE}.git "${SUBMODULE}";
+          git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE}";
         fi
 
         git push;
