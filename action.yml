@@ -1,0 +1,14 @@
+name: Rules Hub Language Manager
+author: julian naydichev
+description: This will monitor the language repos and automatically add them to the main hub
+inputs:
+  hub-repo:
+    description: The name of the repo that the hub lives in
+    required: false
+    default: cephalofair/rules-hub
+runs:
+  using: node20
+  main: main.js
+branding:
+  icon: activity
+  color: orange
