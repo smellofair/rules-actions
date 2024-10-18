@@ -1,7 +1,8 @@
 #!/bin/sh -l
 
-echo "This is a test";
-echo "Args: $1";
-env;
-pwd;
-ls -1;
+HUB=$1;
+REPO_LANG=${GITHUB_REPOSITORY:-2}
+
+echo "Cloning $HUB... to update $REPO_LANG";
+git clone git@github.com:$HUB hub-working-dir;
+
