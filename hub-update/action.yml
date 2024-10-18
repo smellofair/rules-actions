@@ -45,7 +45,7 @@ runs:
         echo "Checking for ${RULE_LANG}";
         if [ -e "${SUBMODULE_PATH}" ]; then
           echo "Updating submodule...";
-          git submodule update --remote --merge -f "${SUBMODULE_PATH}";
+          git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
         else
           echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
