@@ -10,6 +10,7 @@ runs:
     - name: "Add / Update Submodule"
       shell: bash
       run: |
+        ls -lah;
         echo "Initializing submodules...";
 
         git submodule init;
