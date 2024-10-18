@@ -10,11 +10,21 @@ runs:
     - name: "Add / Update Submodule"
       shell: bash
       run: |
+        echo "Initializing submodules...";
+
+        git submodule init;
+        git submodule update;
+
         SOURCE="${{ inputs.source }}";
         RULE_LANG="${SOURCE: -2}";
+        SUBMODULE="translations/${RULE_LANG}";
+
         echo "Checking for ${RULE_LANG}";
-        if [ -e "translations/${RULE_LANG}" ]; then
-          echo "it exists!";
+        if [ -e "${SUBMODULE}" ]; then
+          git submodule update --remote "${SUBMODULE}";
         else
-          echo "it doesn't exist";
+          echo "Creating submodule...";
+          git submodule add git@github.com:${SOURCE}.git "${SUBMODULE}";
         fi
+
+        git push;
