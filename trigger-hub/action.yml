@@ -14,14 +14,16 @@ runs:
   steps:
     - name: "Pull the Trigger"
       shell: bash
+      env:
+        PAT: ${{ secrets.PAT }}
+        REPO: ${{ inputs.hub-repo }}
+        TARGET_ACTION: ${{ inputs.target-action }}
       run: |
         service="${{ github.event.inputs.target_service }}"
         version="${{ github.event.inputs.target_version }}"
-        repo="${{ inputs.hub-repo }}"
-        event_type="${{ inputs.target-action }}"
         curl -L \
           -X POST \
           -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.PAT }}" \
-          https://api.github.com/repos/${repo}/dispatches \
-          -d "{\"event_type\": \"${event_type}\", \"client_payload\": {\"source\": \"${{ github.repository }}\"}}"
+          -H "Authorization: Bearer ${PAT}" \
+          https://api.github.com/repos/${REPO}/dispatches \
+          -d "{\"event_type\": \"${TARGEG_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\"}}"
