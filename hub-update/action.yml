@@ -8,9 +8,7 @@ runs:
   using: "composite"
   steps:
     - name: "Checkout hub repo"
-      uses: actions/checkout@v3
-      with:
-        repo: cephalofair/rules-hub
+      uses: actions/checkout@v4
 
     - name: "Add / Update Submodule"
       shell: bash
