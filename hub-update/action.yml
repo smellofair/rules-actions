@@ -10,6 +10,11 @@ runs:
     - name: "Add / Update Submodule"
       shell: bash
       run: |
-        ls;
-        echo "${{ inputs.source }}"
-        echo "and now i'd do the magic"
+        SOURCE="${{ inputs.source }}";
+        RULE_LANG="${SOURCE:-2}";
+        echo "Checking for ${RULE_LANG}";
+        if [ -e "translations/${RULE_LANG}" ]; then
+          echo "it exists!";
+        else
+          echo "it doesn't exist";
+        done
