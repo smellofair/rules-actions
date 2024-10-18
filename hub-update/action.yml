@@ -31,7 +31,7 @@ runs:
 
         RULE_LANG="${SOURCE: -2}";
         SUBMODULE_PATH="translations/${RULE_LANG}";
-        SUBMODULE_GIT_URL="https://x-access-token:${PAT}@github.com/${SOURCE}"
+        SUBMODULE_GIT_URL="https://x-access-token:${PAT}@github.com/${SOURCE}.git";
 
 
         echo "Checking for ${RULE_LANG}";
