@@ -30,9 +30,13 @@ runs:
         echo "\`\`\`\n$(tree)\n\`\`\`" >> ../status.md;
 
         git checkout -b gh_pages
+        git pull;
+
+        rm -rf ./;
+
         mv ../status.md ./;
 
-        git add status.md;
+        git add .;
 
         git config user.name "Cephalobot";
         git config user.email "cephalobot@j.diode.pw";
