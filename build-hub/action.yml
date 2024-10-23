@@ -28,7 +28,7 @@ runs:
         echo "# pwd" >> ../status.md;
         echo "\`$(pwd)\`" >> ../status.md;
         echo "# tree" >> ../status.md;
-        echo "\`\`\`\n$(tree)\n\`\`\`" >> ../status.md;
+        echo "\`\`\`\r\n$(tree)\r\n\`\`\`" >> ../status.md;
 
         git checkout -b gh_pages;
         git pull origin gh_pages || echo "No branch on origin yet.";
