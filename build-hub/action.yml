@@ -23,7 +23,6 @@ runs:
       env:
         PAT: ${{ inputs.pat }}
       run: |
-        set -x;
         echo "# this is a dummy step for now."; >> ../status.md;
         echo "# pwd" >> ../status.md;
         echo "\`$(pwd)\`" >> ../status.md;
