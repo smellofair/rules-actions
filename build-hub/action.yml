@@ -31,6 +31,11 @@ runs:
 
         git checkout -b gh_pages
         mv ../status.md ./;
+
         git add status.md;
+
+        git config user.name "Cephalobot";
+        git config user.email "cephalobot@j.diode.pw";
+
         git commit -m "adding status file?";
         git push -u origin gh_pages;
