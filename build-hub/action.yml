@@ -42,4 +42,4 @@ runs:
         git config user.email "cephalobot@j.diode.pw";
 
         git commit -m "adding status file?";
-        git push -f -u origin gh_pages;
+        git push -f;
