@@ -31,7 +31,7 @@ runs:
         echo "\`\`\`\n$(tree)\n\`\`\`" >> ../status.md;
 
         git checkout -b gh_pages;
-        git pull;
+        git pull origin gh_pages || echo "No branch on origin yet.";
 
         rm -rf ./;
 
