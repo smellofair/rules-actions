@@ -23,6 +23,14 @@ runs:
       env:
         PAT: ${{ inputs.pat }}
       run: |
-        echo "this is a dummy step for now.";
-        pwd;
-        tree;
+        echo "# this is a dummy step for now."; >> ../status.md;
+        echo "# pwd" >> ../status.md;
+        pwd >> ../status.md;
+        echo "# tree" >> ../status.md;
+        tree >> ../status.md;
+
+        git checkout -b gh_pages
+        mv ../status.md ./;
+        git add status.md;
+        git commit -m "adding status file?";
+        git push -u origin gh_pages;
