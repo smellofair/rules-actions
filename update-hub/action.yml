@@ -1,4 +1,4 @@
-name: "Hub Update"
+name: "Update Hub"
 description: "This does the logic of pulling in the latest version of a given language"
 inputs:
   source:

@@ -1,0 +1,28 @@
+name: "Build Hub"
+description: "This will build the static website from the rules-hub repo."
+inputs:
+  pat:
+    description: "An access token with the correct permissions"
+    required: true
+  hub-repo:
+    description: "The repo to trigger."
+    required: true
+    default: cephalofair/rules-hub
+runs:
+  using: "composite"
+  steps:
+    - name: "Checkout the Hub"
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.hub-repo }}
+        token: ${{ inputs.pat }}
+        submodules: true
+
+    - name: "dummy step"
+      shell: bash
+      env:
+        PAT: ${{ inputs.pat }}
+      run: |
+        echo "this is a dummy step for now.";
+        pwd;
+        tree;
