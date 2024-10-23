@@ -33,7 +33,7 @@ runs:
         git checkout -b gh_pages;
         git pull origin gh_pages || echo "No branch on origin yet.";
 
-        rm -rf ./;
+        rm -rf ./* ./.*;
 
         mv ../status.md ./;
 
@@ -43,4 +43,4 @@ runs:
         git config user.email "cephalobot@j.diode.pw";
 
         git commit -m "adding status file?";
-        git push -f;
+        git push -f origin gh_pages;
