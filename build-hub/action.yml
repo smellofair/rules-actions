@@ -29,7 +29,7 @@ runs:
         echo "# tree" >> ../status.md;
         echo "\`\`\`\n$(tree)\n\`\`\`" >> ../status.md;
 
-        git checkout gh_pages
+        git checkout gh_pages;
         git pull;
 
         rm -rf ./;
