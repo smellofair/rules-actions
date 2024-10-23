@@ -33,7 +33,7 @@ runs:
         git checkout -b gh_pages;
         git pull origin gh_pages || echo "No branch on origin yet.";
 
-        rm -rf ./* ./.*;
+        rm -rf ./*;
 
         mv ../status.md ./;
 
