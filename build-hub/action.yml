@@ -29,7 +29,7 @@ runs:
         echo "# tree" >> ../status.md;
         echo "\`\`\`\n$(tree)\n\`\`\`" >> ../status.md;
 
-        git checkout -b gh_pages
+        git checkout gh_pages
         git pull;
 
         rm -rf ./;
@@ -42,4 +42,4 @@ runs:
         git config user.email "cephalobot@j.diode.pw";
 
         git commit -m "adding status file?";
-        git push -u origin gh_pages;
+        git push -f -u origin gh_pages;
