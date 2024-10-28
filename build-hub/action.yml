@@ -31,9 +31,9 @@ runs:
         write "\n# tree";
         write "\`\`\`\r\n$(tree)\r\n\`\`\`";
         write "\n# most recent commit";
-        write "```";
+        write "\`\`\`";
         write "$(git log -1 HEAD)";
-        write "```";
+        write "\`\`\`";
 
         git checkout -b gh_pages;
         git pull origin gh_pages || printf "No branch on origin yet.";
