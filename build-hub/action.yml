@@ -28,9 +28,9 @@ runs:
         printf "\`$(pwd)\`\n" >> ../status.md;
         printf "# tree\n" >> ../status.md;
         printf "\`\`\`\r\n$(tree)\r\n\`\`\`\n" >> ../status.md;
-        printf "```\n";
-        git log -1 HEAD;
-        printf "```\n";
+        printf "```\n" >> ../status.md;
+        git log -1 HEAD >> ../status.md;
+        printf "```\n" >> ../status.md;
 
         git checkout -b gh_pages;
         git pull origin gh_pages || printf "No branch on origin yet.";
