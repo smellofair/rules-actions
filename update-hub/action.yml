@@ -26,8 +26,8 @@ runs:
     - name: "Configure Identity"
       shell: bash
       run: |
-        git config --global user.name "Cephalobot"
-        git config --global user.email "cephalobot@j.diode.pw"
+        git config --global user.name "Smell-o-bot"
+        git config --global user.email "smell-o-bot@j.diode.pw"
 
     - name: "Add / Update Submodule"
       shell: bash
