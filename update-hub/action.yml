@@ -53,16 +53,19 @@ runs:
 
         LOCAL_COMMIT="[(${AUTHOR}) - ${COMMIT}]";
 
-        echo "Checking for ${SOURCE}";
-        if [ -e "${SUBMODULE_PATH}" ]; then
-          echo "Updating submodule...";
+        test -e "${SUBMODULE_PATH}";
+        UPDATE=$?;
+        ACTION=$(test $UPDATE && "Updating" || "Adding");
+
+        echo "${ACTION} submodule...";
+
+        if test $UPDATE; then
           git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
           git add "${SUBMODULE_PATH}";
-          git commit -m "Updating ${SOURCE}: ${LOCAL_COMMIT}";
         else
-          echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
-          git commit -m "Adding ${SOURCE}: ${LOCAL_COMMIT}";
         fi
+
+        git commit -m "${ACTION} ${SOURCE}: ${LOCAL_COMMIT}";
 
         git push;
