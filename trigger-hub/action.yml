@@ -41,8 +41,6 @@ runs:
         AUTHOR: ${{ steps.extract-commit.outputs.AUTHOR }}
         COMMIT: ${{ steps.extract-commit.outputs.COMMIT }}
       run: |
-        echo "Triggering hub workflow, using the following values: ";
-        echo "HUB_REPO: ${HUB_REPO}\nTARGET_ACTION: ${TARGET_ACTION}\nAUTHOR: ${AUTHOR}\nCOMMIT: ${COMMIT}";
         curl -L \
           -X POST \
           -H "Accept: application/vnd.github+json" \
