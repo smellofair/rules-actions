@@ -25,14 +25,12 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: ${{ inputs.hub-repo }}
-        path: hub
         token: ${{ inputs.pat }}
         submodules: true
 
     - name: "Initialize Submodules"
       shell: bash
       run: |
-        cd hub;
 
         git config --global user.name "Smell-o-bot"
         git config --global user.email "smell-o-bot@j.diode.pw"
