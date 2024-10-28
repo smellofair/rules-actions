@@ -7,6 +7,10 @@ inputs:
   pat:
     description: "A Personal Access Token"
     required: true
+  hub-repo:
+    description: "The repo to trigger."
+    required: true
+    default: smellofair/rules-hub
 
 runs:
   using: "composite"
@@ -14,7 +18,7 @@ runs:
     - name: "Checkout hub repo"
       uses: actions/checkout@v4
       with:
-        repository: ${{ vars.HUB_REPO }}
+        repository: ${{ inputs.hub-repo }}
         path: hub
         token: ${{ inputs.pat }}
         submodules: true
