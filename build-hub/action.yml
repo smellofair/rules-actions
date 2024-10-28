@@ -23,7 +23,7 @@ runs:
       env:
         PAT: ${{ inputs.pat }}
       run: |
-        write() { print "$1\n" >> ../status.md }
+        write() { printf "$1\n" >> ../status.md; }
 
         write "# this is a dummy step for now.";
         write "\n# pwd";
