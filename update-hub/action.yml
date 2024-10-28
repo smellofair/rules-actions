@@ -48,7 +48,8 @@ runs:
       run: |
         ls -lhR;
 
-        SUBMODULE_PATH="translations/${SOURCE}";
+        BASE=$(basename ${SOURCE});
+        SUBMODULE_PATH="translations/${BASE}";
         SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
 
         LOCAL_COMMIT="[(${AUTHOR}) - ${COMMIT}]";
