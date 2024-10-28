@@ -4,6 +4,12 @@ inputs:
   source:
     description: "The name of the source repo"
     required: true
+  author:
+    description: "The author of the commit that triggered this."
+    default: "unknown"
+  commit:
+    description: "The commit message that triggered this."
+    default: "unknown"
   pat:
     description: "A Personal Access Token"
     required: true
@@ -39,6 +45,8 @@ runs:
       env:
         PAT: ${{ inputs.pat }}
         SOURCE: ${{ inputs.source }}
+        AUTHOR: ${{ inputs.author }}
+        COMMIT: ${{ inputs.commit }}
       run: |
         ls -lhR;
 
@@ -46,17 +54,18 @@ runs:
         SUBMODULE_PATH="translations/${RULE_LANG}";
         SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
 
+        LOCAL_COMMIT="Triggered by: ${AUTHOR} - ${COMMIT}";
 
         echo "Checking for ${RULE_LANG}";
         if [ -e "${SUBMODULE_PATH}" ]; then
           echo "Updating submodule...";
           git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
           git add "${SUBMODULE_PATH}";
-          git commit -m "Updating ${RULE_LANG} translation";
+          git commit -m "Updating ${RULE_LANG}: ${LOCAL_COMMIT}";
         else
           echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
-          git commit -m "Adding ${SOURCE} to translations";
+          git commit -m "Adding ${SOURCE}: ${LOCAL_COMMIT}";
         fi
 
         git push;
