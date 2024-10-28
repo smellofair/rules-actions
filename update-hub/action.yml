@@ -14,20 +14,21 @@ runs:
     - name: "Checkout hub repo"
       uses: actions/checkout@v4
       with:
+        repository: ${{ vars.HUB_REPO }}
+        path: hub
         token: ${{ inputs.pat }}
         submodules: true
 
     - name: "Initialize Submodules"
       shell: bash
       run: |
-        git submodule init;
-        git submodule update;
+        cd hub;
 
-    - name: "Configure Identity"
-      shell: bash
-      run: |
         git config --global user.name "Smell-o-bot"
         git config --global user.email "smell-o-bot@j.diode.pw"
+
+        git submodule init;
+        git submodule update;
 
     - name: "Add / Update Submodule"
       shell: bash
@@ -39,7 +40,7 @@ runs:
 
         RULE_LANG="${SOURCE: -2}";
         SUBMODULE_PATH="translations/${RULE_LANG}";
-        SUBMODULE_GIT_URL="https://x-access-token:${PAT}@github.com/${SOURCE}.git";
+        SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
 
 
         echo "Checking for ${RULE_LANG}";

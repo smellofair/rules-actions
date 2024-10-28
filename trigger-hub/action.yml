@@ -15,16 +15,38 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: "Pull the Trigger"
+    - id: main-checkout
+      name: "Checkout this repo"
+      uses: actions/checkout@v4
+
+    - id: extract-commit
+      name: "Get commit metadata"
+      shell: bash
+      run: |
+        pwd;
+        ls;
+        cd ${{ github.repository }};
+        LINE=$(git log -1 --pretty="format:%cN = %B" ${{ github.sha }});
+        AUTHOR=$(echo $LINE | cut -d'=-=' -f0);
+        COMMIT=$(echo $LINE | cut -d'=-=' -f1-);
+        echo "AUTHOR=${AUTHOR}" >> $GITHUB_OUTPUT;
+        echo "COMMIT=${COMMIT}" >> $GITHUB_OUTPUT;
+
+    - id: trigger-hub-action
+      name: "Pull the Trigger"
       shell: bash
       env:
-        REPO: ${{ inputs.hub-repo }}
+        HUB_REPO: ${{ inputs.hub-repo }}
         TARGET_ACTION: ${{ inputs.target-action }}
         PAT: ${{ inputs.pat }}
+        AUTHOR: ${{ steps.extract-commit.outputs.AUTHOR }}
+        COMMIT: ${{ steps.extract-commit.outputs.COMMIT }}
       run: |
+        echo "Triggering hub workflow, using the following values: ";
+        echo "HUB_REPO: ${HUB_REPO}\nTARGET_ACTION: ${TARGET_ACTION}\nAUTHOR: ${AUTHOR}\nCOMMIT: ${COMMIT}";
         curl -L \
           -X POST \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${PAT}" \
-          https://api.github.com/repos/${REPO}/dispatches \
-          -d "{\"event_type\": \"${TARGET_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\"}}"
+          https://api.github.com/repos/${HUB_REPO}/dispatches \
+          -d "{\"event_type\": \"${TARGET_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\", \"author\":\"${AUTHOR}\",\"commit\":\"${COMMIT}\"}}"
