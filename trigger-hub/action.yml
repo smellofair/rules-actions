@@ -4,7 +4,7 @@ inputs:
   hub-repo:
     description: "The repo to trigger."
     required: true
-    default: ${{ vars.HUB_REPO }}
+    default: smellofair/rules-hub
   target-action:
     description: "The name of the action to trigger."
     required: true
