@@ -51,7 +51,7 @@ runs:
         SUBMODULE_PATH="translations/${SOURCE}";
         SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
 
-        LOCAL_COMMIT="Triggered by: ${AUTHOR} - ${COMMIT}";
+        LOCAL_COMMIT="[(${AUTHOR}) - ${COMMIT}]";
 
         echo "Checking for ${SOURCE}";
         if [ -e "${SUBMODULE_PATH}" ]; then
