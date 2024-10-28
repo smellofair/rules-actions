@@ -48,18 +48,17 @@ runs:
       run: |
         ls -lhR;
 
-        RULE_LANG="${SOURCE: -2}";
-        SUBMODULE_PATH="translations/${RULE_LANG}";
+        SUBMODULE_PATH="translations/${SOURCE}";
         SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
 
         LOCAL_COMMIT="Triggered by: ${AUTHOR} - ${COMMIT}";
 
-        echo "Checking for ${RULE_LANG}";
+        echo "Checking for ${SOURCE}";
         if [ -e "${SUBMODULE_PATH}" ]; then
           echo "Updating submodule...";
           git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
           git add "${SUBMODULE_PATH}";
-          git commit -m "Updating ${RULE_LANG}: ${LOCAL_COMMIT}";
+          git commit -m "Updating ${SOURCE}: ${LOCAL_COMMIT}";
         else
           echo "Creating submodule...";
           git submodule add "${SUBMODULE_GIT_URL}" "${SUBMODULE_PATH}";
