@@ -25,7 +25,6 @@ runs:
       run: |
         pwd;
         ls;
-        cd ${{ github.repository }};
         LINE=$(git log -1 --pretty="format:%cN = %B" ${{ github.sha }});
         AUTHOR=$(echo $LINE | cut -d'=-=' -f0);
         COMMIT=$(echo $LINE | cut -d'=-=' -f1-);
