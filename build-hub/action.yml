@@ -24,10 +24,11 @@ runs:
         PAT: ${{ inputs.pat }}
       run: |
         printf "# this is a dummy step for now.\n"; >> ../status.md;
-        printf "# pwd\n" >> ../status.md;
+        printf "\n# pwd\n" >> ../status.md;
         printf "\`$(pwd)\`\n" >> ../status.md;
-        printf "# tree\n" >> ../status.md;
+        printf "\n# tree\n" >> ../status.md;
         printf "\`\`\`\r\n$(tree)\r\n\`\`\`\n" >> ../status.md;
+        printf "\n# most recent commit\n" >> ../status.md;
         printf "```\n" >> ../status.md;
         git log -1 HEAD >> ../status.md;
         printf "```\n" >> ../status.md;
