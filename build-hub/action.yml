@@ -23,14 +23,17 @@ runs:
       env:
         PAT: ${{ inputs.pat }}
       run: |
-        echo "# this is a dummy step for now."; >> ../status.md;
-        echo "# pwd" >> ../status.md;
-        echo "\`$(pwd)\`" >> ../status.md;
-        echo "# tree" >> ../status.md;
-        echo "\`\`\`\r\n$(tree)\r\n\`\`\`" >> ../status.md;
+        printf "# this is a dummy step for now."; >> ../status.md;
+        printf "# pwd" >> ../status.md;
+        printf "\`$(pwd)\`" >> ../status.md;
+        printf "# tree" >> ../status.md;
+        printf "\`\`\`\r\n$(tree)\r\n\`\`\`" >> ../status.md;
+        printf "```";
+        git log -1 HEAD;
+        printf "```";
 
         git checkout -b gh_pages;
-        git pull origin gh_pages || echo "No branch on origin yet.";
+        git pull origin gh_pages || printf "No branch on origin yet.";
 
         rm -rf ./*;
 
