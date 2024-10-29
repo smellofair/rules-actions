@@ -30,6 +30,7 @@ def main(args):
         logger.setLevel(logging.DEBUG)
 
     _output = base.joinpath("output")
+    create_directory(_output)
 
     fh = logging.FileHandler(_output.joinpath("_build.log"))
     fh.setFormatter(logging.Formatter(LOG_FORMAT))
@@ -40,11 +41,10 @@ def main(args):
 
     _actions = base.joinpath("actions") # TODO - is this used?
 
-    if os.path.exists(_output):
+    if args.test and os.path.exists(_output):
         logger.debug("Blowing away existing output directory")
         shutil.rmtree(_output)
-
-    create_directory(_output)
+        create_directory(_output)
 
     config = load_config(_hub)
     available = load_available_translations(_hub)
