@@ -29,7 +29,9 @@ def main(args):
     if args.verbose:
         logger.setLevel(logging.DEBUG)
 
-    fh = logging.FileHandler(base.joinpath("_build.log"))
+    _output = base.joinpath("output")
+
+    fh = logging.FileHandler(_output.joinpath("_build.log"))
     fh.setFormatter(logging.Formatter(LOG_FORMAT))
     logger.addHandler(fh)
 
@@ -38,7 +40,6 @@ def main(args):
 
     _actions = base.joinpath("actions") # TODO - is this used?
 
-    _output = base.joinpath("output")
     if os.path.exists(_output):
         logger.debug("Blowing away existing output directory")
         shutil.rmtree(_output)
