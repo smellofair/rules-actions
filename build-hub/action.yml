@@ -11,41 +11,67 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: "Checkout the Hub"
+    - id: checkout-hub
+      name: "Checkout the Hub"
       uses: actions/checkout@v4
       with:
         repository: ${{ inputs.hub-repo }}
         token: ${{ inputs.pat }}
         submodules: true
 
-    - name: "dummy step"
-      shell: bash
-      env:
-        PAT: ${{ inputs.pat }}
-      run: |
-        write() { printf "$1\n" >> ../status.md; }
+    - id: setup-python
+      name: "Setup Python"
+      uses: actions/setup-python@v5
+      with:
+        python-version: pypy3.10
+        cache: pip
 
-        write "# this is a dummy step for now.";
-        write "\n# pwd";
-        write "\`$(pwd)\`";
-        write "\n# tree";
-        write "\`\`\`\r\n$(tree)\r\n\`\`\`";
-        write "\n# most recent commit";
-        write "\`\`\`";
-        write "$(git log -1 HEAD)";
-        write "\`\`\`";
+    - id: install-dependencies
+      name: "Install Dependencies"
+      run: pip install -r requirements.txt
 
-        git checkout -b gh_pages;
-        git pull origin gh_pages || printf "No branch on origin yet.";
+    - id: build-site
+      name: "Build Site"
+      run: python build_site.py
 
-        rm -rf ./*;
+    - id: upload-site
+      name: "Upload Site"
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: output/
 
-        mv ../status.md ./;
+    - id: deploy-site
+      name: "Deploy Site"
+      uses: actions/deploy-pages@v4
 
-        git add .;
+    # - name: "dummy step"
+    #   shell: bash
+    #   env:
+    #     PAT: ${{ inputs.pat }}
+    #   run: |
+    #     write() { printf "$1\n" >> ../status.md; }
 
-        git config user.name "Smell-o-bot";
-        git config user.email "smell-o-bot@j.diode.pw";
+    #     write "# this is a dummy step for now.";
+    #     write "\n# pwd";
+    #     write "\`$(pwd)\`";
+    #     write "\n# tree";
+    #     write "\`\`\`\r\n$(tree)\r\n\`\`\`";
+    #     write "\n# most recent commit";
+    #     write "\`\`\`";
+    #     write "$(git log -1 HEAD)";
+    #     write "\`\`\`";
 
-        git commit -m "adding status file?";
-        git push -f origin gh_pages;
+    #     git checkout -b gh_pages;
+    #     git pull origin gh_pages || printf "No branch on origin yet.";
+
+    #     rm -rf ./*;
+
+    #     mv ../status.md ./;
+
+    #     git add .;
+
+    #     git config user.name "Smell-o-bot";
+    #     git config user.email "smell-o-bot@j.diode.pw";
+
+    #     git commit -m "adding status file?";
+    #     git push -f origin gh_pages;
