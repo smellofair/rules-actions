@@ -28,10 +28,12 @@ runs:
 
     - id: install-dependencies
       name: "Install Dependencies"
+      shell: bash
       run: pip install -r requirements.txt
 
     - id: build-site
       name: "Build Site"
+      shell: bash
       run: python build_site.py
 
     - id: upload-site
