@@ -8,6 +8,10 @@ inputs:
     description: "The repo to trigger."
     required: true
     default: smellofair/rules-hub
+  actions-repo:
+    description: "The actions repo."
+    required: true
+    default: smellofair/rules-actions
 runs:
   using: "composite"
   steps:
@@ -15,9 +19,18 @@ runs:
       name: "Checkout the Hub"
       uses: actions/checkout@v4
       with:
+        path: hub
         repository: ${{ inputs.hub-repo }}
         token: ${{ inputs.pat }}
         submodules: true
+
+    - id: checkout-actions
+      name: "Checkout the Actions repo"
+      uses: actions/checkout@v4
+      with:
+        path: actions
+        repository: ${{ inputs.actions-repo }}
+        token: ${{ inputs.pat }}
 
     - id: setup-python
       name: "Setup Python"
@@ -29,12 +42,12 @@ runs:
     - id: install-dependencies
       name: "Install Dependencies"
       shell: bash
-      run: pip install -r requirements.txt
+      run: pip install -r actions/build-hub/requirements.txt
 
     - id: build-site
       name: "Build Site"
       shell: bash
-      run: python build_site.py
+      run: python actions/build-hub/build_site.py
 
     - id: upload-site
       name: "Upload Site"
