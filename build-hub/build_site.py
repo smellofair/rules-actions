@@ -66,7 +66,7 @@ def build_hub(_hub, _output, config, available):
     for key, val in languages.items():
         # build each languages index page
         copy_with_replace(
-            _hub.joinpath("hub-root/index.html"), # TODO - get a language specific file?
+            _hub.joinpath("hub-root/gamelist.html"), # TODO - get a language specific file?
             _output.joinpath(f"{key}/index.html"),
             lambda line: False,
             lambda x, y: None
