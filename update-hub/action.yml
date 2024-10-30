@@ -24,6 +24,7 @@ runs:
     - name: "Checkout hub repo"
       uses: actions/checkout@v4
       with:
+        ref: main
         repository: ${{ inputs.hub-repo }}
         token: ${{ inputs.pat }}
         submodules: true
@@ -45,9 +46,6 @@ runs:
         AUTHOR: ${{ inputs.author }}
         COMMIT: ${{ inputs.commit }}
       run: |
-        set -x;
-        ls -lhR;
-
         BASE=$(basename ${SOURCE});
         SUBMODULE_PATH="translations/${BASE}";
         SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
