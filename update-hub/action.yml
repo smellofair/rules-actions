@@ -54,13 +54,11 @@ runs:
 
         LOCAL_COMMIT="[(${AUTHOR}) - ${COMMIT}]";
 
-        test -e "${SUBMODULE_PATH}";
-        UPDATE=$?;
-        ACTION=$(test $UPDATE && "Updating" || "Adding");
+        ACTION=$([ -e "${SUBMODULE_PATH}" ] && echo "Updating" || echo "Adding");
 
         echo "${ACTION} submodule...";
 
-        if test $UPDATE; then
+        if [ -e "${SUBMODULE_PATH}" ]; then
           git submodule update --remote --checkout -f "${SUBMODULE_PATH}";
           git add "${SUBMODULE_PATH}";
         else
