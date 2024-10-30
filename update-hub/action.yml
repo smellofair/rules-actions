@@ -41,11 +41,11 @@ runs:
     - name: "Add / Update Submodule"
       shell: bash
       env:
-        PAT: ${{ inputs.pat }}
         SOURCE: ${{ inputs.source }}
         AUTHOR: ${{ inputs.author }}
         COMMIT: ${{ inputs.commit }}
       run: |
+        set -x;
         ls -lhR;
 
         BASE=$(basename ${SOURCE});
