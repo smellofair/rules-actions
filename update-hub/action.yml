@@ -4,6 +4,9 @@ inputs:
   source:
     description: "The name of the source repo"
     required: true
+  actor:
+    description: "The username of the author."
+    default: "unknown"
   author:
     description: "The author of the commit that triggered this."
     default: "unknown"
@@ -44,13 +47,14 @@ runs:
       env:
         SOURCE: ${{ inputs.source }}
         AUTHOR: ${{ inputs.author }}
+        ACTOR: ${{ inputs.actor }}
         COMMIT: ${{ inputs.commit }}
       run: |
         BASE=$(basename ${SOURCE});
         SUBMODULE_PATH="translations/${BASE}";
         SUBMODULE_GIT_URL="https://github.com/${SOURCE}.git";
 
-        LOCAL_COMMIT="[(${AUTHOR}) - ${COMMIT}]";
+        LOCAL_COMMIT="[(${ACTOR} | ${AUTHOR}) - ${COMMIT}]";
 
         ACTION=$([ -e "${SUBMODULE_PATH}" ] && echo "Updating" || echo "Adding");
 

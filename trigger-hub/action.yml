@@ -40,10 +40,11 @@ runs:
         PAT: ${{ inputs.pat }}
         AUTHOR: ${{ steps.extract-commit.outputs.AUTHOR }}
         COMMIT: ${{ steps.extract-commit.outputs.COMMIT }}
+        ACTOR: ${{ github.actor }}
       run: |
         curl -L \
           -X POST \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${PAT}" \
           https://api.github.com/repos/${HUB_REPO}/dispatches \
-          -d "{\"event_type\": \"${TARGET_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\", \"author\":\"${AUTHOR}\",\"commit\":\"${COMMIT}\"}}"
+          -d "{\"event_type\": \"${TARGET_ACTION}\", \"client_payload\": {\"source\": \"${{ github.repository }}\", \"author\":\"${AUTHOR}\",\"commit\":\"${COMMIT}\",\"actor\":\"${ACTOR}\"}}"
