@@ -270,8 +270,7 @@ def do_replace(data, delegate, line):
 
 def main_replace_delegate(data, relevant):
     if relevant == "LANGUAGES":
-        langs = json.dumps(list(data.keys()))
-        return f"availableLanguags = {langs}"
+        return json.dumps(list(data.keys()))
     elif relevant == "LANGLIST":
         return _m(
             "\n".join([
