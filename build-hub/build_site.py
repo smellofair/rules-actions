@@ -275,7 +275,7 @@ def main_replace_delegate(data, relevant):
     elif relevant == "LANGLIST":
         return _m(
             "\n".join([
-                f"- [{v["name"]}]({k})"
+                f"- [{v['name']}]({k})"
                 for k,v in data.items()
             ])
         )
@@ -287,7 +287,7 @@ def gamelist_replace_delegate(data, relevant):
     if relevant == "GAMELIST":
         games = []
         for code, game in data["games"].items():
-            line = f"{game["name"]} - "
+            line = f"{game['name']} - "
 
             links = []
             if "rules" in game["files"]:
@@ -301,7 +301,7 @@ def gamelist_replace_delegate(data, relevant):
         return _m("\n".join([f"- {g}" for g in games]))
 
     elif relevant == "TITLE":
-        return f"Smell-of-Air {data["name"]} Rules Hub"
+        return f"Smell-of-Air {data['name']} Rules Hub"
 
 
     return relevant
@@ -309,7 +309,7 @@ def gamelist_replace_delegate(data, relevant):
 
 def game_replace_delegate(data, relevant):
     if relevant == "TITLE":
-        return f"Smell-of-Air {data["name"]} *game* Rules/FAQ"
+        return f"Smell-of-Air {data['name']} *game* Rules/FAQ"
 
     # TODO - what could I possibly have here?
     return None
